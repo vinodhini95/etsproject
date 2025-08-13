@@ -9,14 +9,8 @@
         {
             "lable": "Upcoming",
             "key": "upcoming"
-        },
-        {
-            "lable": "Completed",
-            "key": "completed"
-        },
-        {
-            "lable": "Due",
-            "key": "due"
         }
     ]
 }
+
+

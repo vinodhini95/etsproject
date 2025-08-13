@@ -158,7 +158,7 @@ class _CardHomeState extends State<CardHome> {
                 ),
                 onTap: () {
                   setState(() {
-                    selectedIndex = 2;
+                    selectedIndex = 1;
                   });
                   Navigator.pop(context);
                 },

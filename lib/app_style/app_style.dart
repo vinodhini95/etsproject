@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AppStyles {
   Color defalutAppColor = Color(0xff285577);
   TextStyle appTextStyle = TextStyle(
-      fontWeight: FontWeight.bold, color: Color(0xFFFF6600), fontSize: 24);
+      fontWeight: FontWeight.bold, color: Color(0xFFFF6600), fontSize: 15);
 
   static grtColor(int color) {
     return <int, Color>{

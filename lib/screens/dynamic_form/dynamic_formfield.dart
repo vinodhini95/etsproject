@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:ets/provider/json_data_provider.dart';
 import 'package:ets/screens/dynamic_form/dynamic_list.dart';
 import 'package:ets/service/api_service.dart';
 import 'package:ets/utils/helper.dart';
@@ -224,9 +225,16 @@ class _DynamicFormFieldBuilderState extends State<DynamicFormFieldBuilder> {
             ),
           ),
           onTap: () async {
+            String screenPath = fieldData["onTap"]?["screen_path"] ?? "";
+            var screenConfig =
+                await JsonDataProvider().loadJson(screenPath, context);
+
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => DynamicListView()),
+              MaterialPageRoute(
+                  builder: (context) => DynamicListView(
+                        configdata: screenConfig,
+                      )),
             );
           },
         );

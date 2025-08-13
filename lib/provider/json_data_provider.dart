@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -29,7 +30,18 @@ class JsonDataProvider extends ChangeNotifier {
       print("Error loading json: $e");
     }
   }
-
+loadJson(String jsonPath, BuildContext context) async {
+    try {
+      String jsonData = await rootBundle.loadString(jsonPath);
+      Map<String, dynamic> decodedData = json.decode(jsonData);
+      notifyListeners();
+      return decodedData;
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error loading json: $e");
+      }
+    }
+  }
   void clearData() {
     totalData.clear();
     notifyListeners();

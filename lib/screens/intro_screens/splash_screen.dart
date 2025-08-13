@@ -68,21 +68,21 @@ class _SplashScreenState extends State<SplashScreen>
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(bottom: 30.0),
-                child: Image.asset(
-                  'assets/images/kriyatec.png',
-                  width: animation!.value * 180,
-                  height: animation!.value * 180,
-                  fit: BoxFit.scaleDown,
-                ),
-              )
-            ],
-          ),
+          // Column(
+          //   mainAxisAlignment: MainAxisAlignment.end,
+          //   mainAxisSize: MainAxisSize.min,
+          //   children: <Widget>[
+          //     Padding(
+          //       padding: const EdgeInsets.only(bottom: 30.0),
+          //       child: Image.asset(
+          //         'assets/images/kriyatec.png',
+          //         width: animation!.value * 180,
+          //         height: animation!.value * 180,
+          //         fit: BoxFit.scaleDown,
+          //       ),
+          //     )
+          //   ],
+          // ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[

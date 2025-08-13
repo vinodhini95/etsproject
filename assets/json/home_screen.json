@@ -14,14 +14,14 @@
                 {
                     "type": "card",
                     "name": "TASK LIST",
-                    "text_color":"#195f49",
-                    "card_color":"#D4E4D6",
+                    "text_color":"#0c0c0c",
+                    "card_color":"#ebb1b4",
                     "image": "assets/images/task_list.png",
                     "onTap": {
                         "type": "navigate",
                         "screenName": "RcnInward",
                         "process_code": "COK",
-                        "screen_path": "Cooking-View",
+                        "screen_path": "assets/json/list_screens/task_list.json",
                         "euipment_type": "ST",
                         "template_based": false,
                         "get_local_data": true
@@ -31,8 +31,8 @@
                     "type": "card",
                     "name": "Team Member",
                     "image": "assets/images/team_member.png",
-                    "text_color":"#195f49",
-                    "card_color":"#D4E4D6",
+                    "text_color":"#0c0c0c",
+                    "card_color":"#ebb1b4",
                     "onTap": {
                         "type": "navigate",
                         "screenName": "ShellingScreen",
@@ -46,8 +46,8 @@
                 {
                     "type": "card",
                     "name": "Sign-In",
-                    "text_color":"#195f49",
-                    "card_color":"#D4E4D6",
+                    "text_color":"#0c0c0c",
+                    "card_color":"#ebb1b4",
                     "image": "assets/images/sign_in_logo.png",
                     "onTap": {
                         "type": "navigate",
@@ -62,8 +62,8 @@
                 {
                     "type": "card",
                     "name": "Activity Log",
-                    "text_color":"#195f49",
-                    "card_color":"#D4E4D6",
+                    "text_color":"#0c0c0c",
+                    "card_color":"#ebb1b4",
                     "image": "assets/images/activity_log.png",
                     "onTap": {
                         "type": "navigate",
@@ -78,8 +78,8 @@
                 {
                     "type": "card",
                     "name": "Sign-Out",
-                    "text_color":"#195f49",
-                    "card_color":"#D4E4D6",
+                    "text_color":"#0c0c0c",
+                    "card_color":"#ebb1b4",
                     "image": "assets/images/sign-out.png",
                     "onTap": {
                         "type": "navigate",
@@ -95,8 +95,8 @@
                 {
                     "type": "card",
                     "name": "Transfer",
-                    "text_color":"#195f49",
-                    "card_color":"#D4E4D6",
+                    "text_color":"#0c0c0c",
+                    "card_color":"#ebb1b4",
                     "image": "assets/images/transfer.png",
                     "onTap": {
                         "type": "navigate",

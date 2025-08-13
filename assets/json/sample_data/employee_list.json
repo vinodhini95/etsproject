@@ -1,0 +1,116 @@
+[{
+  "_id": "EMP00023",
+  "blood_group": "AB+",
+  "mobile_no": "6380263374",
+  "emergency_conduct": [
+    {
+      "relationship": "spouse",
+      "name": "ASHA",
+      "mobile_number": "8967763452"
+    }
+  ],
+  "aadhaar_card": "761912410428",
+  "status": "Deactive",
+  "created_by": "sanjay",
+  "name": "ashok",
+  "trade_type": "TRA00003",
+  "work_type": "contract",
+  "image_content": [
+    {
+      "_id": "3fafc808dc5f47f9be9b7372e0dc6996",
+      "file_name": "Screenshot from 2025-06-23 13-41-48.png",
+      "folder": "courses",
+      "ref_id": "ashok",
+      "size": 569857,
+      "storage_name": "courses/ashok/Screenshot_from_2025-06-23_13-41-48__2025-07-29-12-15-16.png",
+      "uploaded_by": "sanjay"
+    }
+  ],
+  "contractor_name": "WSA",
+  "created_on": {
+    "$date": "2025-07-29T06:45:23.604Z"
+  },
+  "dob": {
+    "$date": "1998-11-19T18:30:00.000Z"
+  },
+  "employment_type": "contract",
+  "update_by": "sanjay",
+  "update_on": {
+    "$date": "2025-08-12T05:05:32.646Z"
+  },
+  "supervisor_id": "EMP00003",
+  "hierarchy_id": "HL0008",
+  "reason": "d"
+},
+{
+  "_id": "EMP00019",
+  "img": [
+    {
+      "file_name": "captured-image__20250724120712.png",
+      "folder": "tes",
+      "ref_id": "tes",
+      "size": 174222,
+      "storage_name": "tes/tes/captured-image__20250724120712__2025-07-24-17-37-13.png",
+      "uploaded_by": "sanjay",
+      "_id": "eb6d3b827b3c445aace3b4a7b9293497"
+    },
+    {
+      "uploaded_by": "sanjay",
+      "_id": "af3653ca247940389f64e8da0b0fa14c",
+      "file_name": "captured-image__20250724120754.png",
+      "folder": "tes",
+      "ref_id": "tes",
+      "size": 196427,
+      "storage_name": "tes/tes/captured-image__20250724120754__2025-07-24-17-37-54.png"
+    },
+    {
+      "file_name": "captured-image__20250724120828.png",
+      "folder": "tes",
+      "ref_id": "tes",
+      "size": 185455,
+      "storage_name": "tes/tes/captured-image__20250724120828__2025-07-24-17-38-28.png",
+      "uploaded_by": "sanjay",
+      "_id": "ced2137973ad486fa7520cab0ce4fa1f"
+    },
+    {
+      "storage_name": "tes/tes/captured-image__20250724120832__2025-07-24-17-38-32.png",
+      "uploaded_by": "sanjay",
+      "_id": "f9d75aaa9d994d5aa4a565374727831d",
+      "file_name": "captured-image__20250724120832.png",
+      "folder": "tes",
+      "ref_id": "tes",
+      "size": 193167
+    }
+  ],
+  "name": "umapathi",
+  "mobile_no": "6816287546",
+  "emergency_conduct": [
+    {
+      "relationship": "friend",
+      "name": "thiyagesh",
+      "mobile_number": "6986532456"
+    }
+  ],
+  "status": "active",
+  "created_on": {
+    "$date": "2025-07-24T12:10:02.902Z"
+  },
+  "created_by": "sanjay",
+  "dob": {
+    "$date": "2004-02-26T18:30:00.000Z"
+  },
+  "blood_group": "O-",
+  "trade_type": "TRA00001",
+  "update_by": "sanjay",
+  "update_on": {
+    "$date": "2025-08-12T18:18:43.494Z"
+  },
+  "employment_type": "permanent",
+  "supervisor_id": "EMP00029",
+  "hierarchy_id": "HL0008",
+  "aadhaar_card": "761912410428",
+  "doj": {
+    "$date": "2025-08-06T18:30:00.000Z"
+  },
+  "gender": "male"
+}]

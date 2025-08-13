@@ -1,38 +1,107 @@
-{
-  "statuses": [
-    { "key": "ongoing", "label": "Ongoing" },
-    { "key": "upcoming", "label": "Upcoming" },
-    { "key": "completed", "label": "Completed" },
-    { "key": "due", "label": "Due" }
-  ],
-  "tasks": [
+ [
     {
-      "id": 1,
-      "title": "Prepare project report",
-      "description": "Complete the Q3 financial report and send it to the manager.",
-      "status": "ongoing",
-      "dueDate": "2025-08-15"
+      "_id": "TASK041",
+      "name": "Roofing",
+      "project_id": "LLY2F",
+      "task_owner": "d3a900f2daf34223b960c66a82bd634d",
+      "building_name": "HK1",
+      "created_on": {
+        "$date": "2025-08-02T09:50:56.553Z"
+      },
+      "created_by": "sanjay",
+      "type": "TASK",
+      "status": "assigned",
+      "update_by": "sanjay",
+      "update_on": {
+        "$date": "2025-08-11T08:09:11.239Z"
+      }
     },
     {
-      "id": 2,
-      "title": "Client meeting",
-      "description": "Discuss the new app features with the client.",
-      "status": "upcoming",
-      "dueDate": "2025-08-20"
+      "_id": "ACTIVITY025",
+      "priority": "medium",
+      "created_on": {
+        "$date": "2025-08-06T08:09:29.565Z"
+      },
+      "name": "painting",
+      "type": "ACTIVITY",
+      "parent_id": "TASK041",
+      "project_id": "LLY2F",
+      "status": "assigned",
+      "created_by": "sanjay",
+      "task_status": "OPEN",
+      "activity_type": "c698ff6a32a34371acf53c6a9313fc7c",
+      "schedule_start_date": {
+        "$date": "2025-08-07T18:30:00.000Z"
+      },
+      "task_owner": "a8f73a41e1374a6f889d8da33d5bffab"
     },
     {
-      "id": 3,
-      "title": "Submit design review",
-      "description": "Final review of the homepage redesign.",
-      "status": "completed",
-      "dueDate": "2025-08-10"
+      "_id": "ACTIVITY026",
+      "name": "Basement Pillar",
+      "task_status": "OPEN",
+      "type": "ACTIVITY",
+      "parent_id": "TASK036",
+      "activity_type": "fc650582-6d46-42b5-8f96-d3bc6a6526c0",
+      "schedule_start_date": {
+        "$date": "2025-08-09T18:30:00.000Z"
+      },
+      "priority": "medium",
+      "project_id": "LLOYDS",
+      "task_owner": "7e04c32238184792ba09891eb1924154",
+      "status": "assigned",
+      "created_on": {
+        "$date": "2025-08-06T09:50:28.689Z"
+      },
+      "created_by": "sanjay"
     },
     {
-      "id": 4,
-      "title": "Renew domain name",
-      "description": "Domain expires soon, renew for next year.",
-      "status": "due",
-      "dueDate": "2025-08-14"
+      "_id": "TASK045",
+      "project_id": "LLOYDS",
+      "type": "TASK",
+      "created_on": {
+        "$date": "2025-08-11T13:02:43.227Z"
+      },
+      "task_owner": "06378cfc09194a05ac9b39a5f997556b",
+      "building_name": "Block D",
+      "status": "assigned",
+      "created_by": "sanjay",
+      "name": "Structural Work\t"
+    },
+    {
+      "_id": "ACTIVITY028",
+      "activity_type": "6bda49c0-1ff5-4e52-bf98-2d8e24870c4a",
+      "task_owner": "782eb96fd63e43eeaacd7a9925fd0c7a",
+      "created_on": {
+        "$date": "2025-08-11T13:03:08.559Z"
+      },
+      "created_by": "sanjay",
+      "name": "Steel Reinforcement\t",
+      "task_status": "OPEN",
+      "schedule_start_date": {
+        "$date": "2025-08-19T18:30:00.000Z"
+      },
+      "status": "assigned",
+      "type": "ACTIVITY",
+      "parent_id": "TASK045",
+      "project_id": "LLOYDS"
+    },
+    {
+      "_id": "ACTIVITY029",
+      "type": "ACTIVITY",
+      "parent_id": "TASK041",
+      "task_owner": "4e90976a378348d0b3bf34d2f44398cd",
+      "status": "assigned",
+      "created_by": "sanjay",
+      "name": "constructing divider",
+      "task_status": "OPEN",
+      "project_id": "LLY2F",
+      "activity_type": "a3028340-c338-4ed3-8c35-3f0a47eaf9fc",
+      "schedule_start_date": {
+        "$date": "2025-08-12T18:30:00.000Z"
+      },
+      "priority": "low",
+      "created_on": {
+        "$date": "2025-08-11T13:32:48.638Z"
+      }
     }
   ]
-}
