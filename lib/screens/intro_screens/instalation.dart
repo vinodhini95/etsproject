@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:ets/app_style/app_style.dart';
+import 'package:ets/screens/intro_screens/login_screen.dart';
 import 'package:ets/utils/assets.dart';
 import 'package:ets/utils/localization.dart';
 import 'package:ets/utils/text.dart';
@@ -59,6 +60,7 @@ class _InstallationScreenState extends State<InstallationScreen> {
                         borderRadius: BorderRadius.circular(30),
                         child: Image.asset(
                           Assets.APP_LOGO,
+                          scale: 0.3,
                         ),
                       ),
                     ),
@@ -171,6 +173,9 @@ class _InstallationScreenState extends State<InstallationScreen> {
   }
 
   verifyInstallationCode() async {
-    
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) =>  LoginScreen()),
+    ); 
   }
 }

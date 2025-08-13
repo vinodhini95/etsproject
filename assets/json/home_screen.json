@@ -13,10 +13,10 @@
             "children": [
                 {
                     "type": "card",
-                    "name": "STEAMING",
+                    "name": "TASK LIST",
                     "text_color":"#195f49",
                     "card_color":"#D4E4D6",
-                    "image": "assets/images/cooker.png",
+                    "image": "assets/images/task_list.png",
                     "onTap": {
                         "type": "navigate",
                         "screenName": "RcnInward",
@@ -29,8 +29,8 @@
                 },
                 {
                     "type": "card",
-                    "name": "SHELLING",
-                    "image": "assets/images/shelling.png",
+                    "name": "Team Member",
+                    "image": "assets/images/team_member.png",
                     "text_color":"#195f49",
                     "card_color":"#D4E4D6",
                     "onTap": {
@@ -45,10 +45,10 @@
                 },
                 {
                     "type": "card",
-                    "name": "BORMA",
+                    "name": "Sign-In",
                     "text_color":"#195f49",
                     "card_color":"#D4E4D6",
-                    "image": "assets/images/vending_machine.png",
+                    "image": "assets/images/sign_in_logo.png",
                     "onTap": {
                         "type": "navigate",
                         "screenName": "BormaHomeScreen",
@@ -61,10 +61,10 @@
                 },
                 {
                     "type": "card",
-                    "name": "COOLING",
+                    "name": "Activity Log",
                     "text_color":"#195f49",
                     "card_color":"#D4E4D6",
-                    "image": "assets/images/fan.png",
+                    "image": "assets/images/activity_log.png",
                     "onTap": {
                         "type": "navigate",
                         "screenName": "CoolingHomeScreen",
@@ -77,10 +77,10 @@
                 },
                 {
                     "type": "card",
-                    "name": "PEELING",
+                    "name": "Sign-Out",
                     "text_color":"#195f49",
                     "card_color":"#D4E4D6",
-                    "image": "assets/images/peeler.png",
+                    "image": "assets/images/sign-out.png",
                     "onTap": {
                         "type": "navigate",
                         "screenName": "PeelingInProgress",
@@ -94,10 +94,10 @@
                 },
                 {
                     "type": "card",
-                    "name": "GRADING",
+                    "name": "Transfer",
                     "text_color":"#195f49",
                     "card_color":"#D4E4D6",
-                    "image": "assets/images/Grading.png",
+                    "image": "assets/images/transfer.png",
                     "onTap": {
                         "type": "navigate",
                         "screenName": "GradingInProgress",
@@ -108,106 +108,6 @@
                         "get_local_data": true,
                         "show_tab":true
                     }
-                },
-                {
-                    "type": "card",
-                    "name": "PACKING",
-                    "text_color":"#195f49",
-                    "card_color":"#D4E4D6",
-                    "image": "assets/images/packing.png",
-                    "onTap": {
-                        "type": "navigate",
-                        "screenName": "PackingScreen",
-                        "euipment_type": "GR",
-                        "process_code":"PAC",
-                        "screen_path":"packing-view",
-                        "packing" : true,
-                        "template_based":true,
-                        "get_local_data": true,
-                        "droupdown-api": {
-                            "type": "droupdown",
-                            "process_code": "MANG"
-                        }
-                    },
-                    "euipment_type": ""
-                },
-                {
-                    "type": "card",
-                    "name": "WORK ENTRY",
-                    "text_color":"#195f49",
-                    "card_color":"#D4E4D6",
-                    "image": "assets/images/salary.png",
-                     "onTap": {
-                        "type": "navigate",
-                        "screenName": "SalaryScreen",
-                        "process_code": "SAL",
-                        "screen_path": "worker-salary-view",
-                        "euipment_type": "",
-                        "template_based": false,
-                        "get_local_data": true
-                    },
-                    "euipment_type": ""
-                },
-                {
-                    "type": "card",
-                    "name": "JOB WORK OUTWARD",
-                    "text_color":"#ffffff",
-                    "card_color":"#297c62",
-                    "image": "assets/images/jobwork.png",
-                    "onTap": {
-                        "type": "navigate",
-                        "screenName": "JobWorkScreen",
-                        "process_code": "JOB_OUTWARD",
-                        "screen_path": "jobwork-outward-view",
-                        "template_based": false,
-                        "params": {
-                            "jobWorkType": "JOB_OUTWARD"
-                        }
-                    },
-                    "euipment_type": "JOB_OUTWARD"
-                },
-                {
-                    "type": "card",
-                    "name": "JOB WORK INWARD",
-                    "image": "assets/images/jobwork.png",
-                    "text_color":"#ffffff",
-                    "card_color":"#297c62",
-                    "onTap": {
-                        "type": "navigate",
-                        "screenName": "JobWorkScreen",
-                        "process_code": "JOB_INWARD",
-                        "screen_path": "jobwork-inward-view",
-                        "template_based": false,
-                        "params": {
-                            "jobWorkType": "JOB_INWARD"
-                        }
-                    },
-                    "euipment_type": "JOB_INWARD"
-                },
-                {
-                    "type": "card",
-                    "name": "SCHEDULED MAINTENANCE",
-                    "text_color":"#ffffff",
-                    "card_color":"#195f49",
-                    "image": "assets/images/scheduled.png",
-                    "onTap": {
-                        "type": "navigate",
-                        "screenName": "ScheduledScreen",
-                        "screen_path":"scheduled-maintenance-view"
-                    },
-                    "euipment_type": ""
-                },
-                {
-                    "type": "card",
-                    "name": "UNSCHEDULED MAINTENANCE",
-                    "text_color":"#ffffff",
-                    "card_color":"#195f49",
-                    "image": "assets/images/Unscheduled.png",
-                    "onTap": {
-                        "type": "navigate",
-                        "screenName": "UnScheduledScreen"
-                    },
-                    "euipment_type": ""
                 }
             ]
         }

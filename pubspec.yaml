@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.8.0
+  sdk: ^3.6.1
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -38,10 +38,10 @@ dependencies:
   provider: ^6.1.5
   awesome_dialog: ^3.2.1
   rounded_loading_button: ^2.1.0
-  flutter_form_builder: ^10.1.0
-  form_builder_file_picker: ^5.0.0
-  form_builder_image_picker: ^4.3.1
-  form_builder_validators: ^11.2.0
+  flutter_form_builder: any
+  form_builder_file_picker: any
+  form_builder_image_picker: any
+  form_builder_validators: any
   fluttertoast: ^8.2.12
   uuid: ^4.5.1
   shared_preferences: ^2.5.3
@@ -51,7 +51,7 @@ dev_dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  intl: ^0.20.2
+  intl: any
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -76,6 +76,7 @@ flutter:
      - ./assets/json/
      - ./assets/images/
      - assets/i18n/
+     - assets/json/sample_data/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

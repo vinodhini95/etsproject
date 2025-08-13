@@ -64,14 +64,14 @@ class _CardHomeState extends State<CardHome> {
           AppLocalizations.of(context)!
                                     .translate(StringData.APP_NAME) ??
                                 '',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: whiteButtonColor),
         ),
         automaticallyImplyLeading: false,
         centerTitle: false,
         backgroundColor: Theme.of(context).primaryColor,
         leading: Padding(
           padding: EdgeInsets.only(left: 17),
-          child: Image.asset(Assets.APP_LOGO),
+          child: Image.asset(Assets.APP_LOGO,color: whiteButtonColor,),
         ),
         actions: [
           Builder(

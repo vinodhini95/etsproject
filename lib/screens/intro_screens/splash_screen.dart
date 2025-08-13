@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:ets/screens/intro_screens/instalation.dart';
+import 'package:ets/screens/intro_screens/login_screen.dart';
 import 'package:ets/utils/assets.dart';
 import 'package:ets/utils/localization.dart';
 import 'package:ets/utils/text.dart';
@@ -32,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen>
   void navigationPage() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) =>  InstallationScreen()),
+      MaterialPageRoute(builder: (context) =>  LoginScreen()),
     );
   }
 
@@ -67,28 +68,29 @@ class _SplashScreenState extends State<SplashScreen>
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          // Column(
-          //   mainAxisAlignment: MainAxisAlignment.end,
-          //   mainAxisSize: MainAxisSize.min,
-          //   children: <Widget>[
-          //     Padding(
-          //       padding: const EdgeInsets.only(bottom: 30.0),
-          //       child: Image.asset(
-          //         'assets/images/kriyatec.png',
-          //         width: animation!.value * 180,
-          //         height: animation!.value * 180,
-          //         fit: BoxFit.scaleDown,
-          //       ),
-          //     )
-          //   ],
-          // ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(bottom: 30.0),
+                child: Image.asset(
+                  'assets/images/kriyatec.png',
+                  width: animation!.value * 180,
+                  height: animation!.value * 180,
+                  fit: BoxFit.scaleDown,
+                ),
+              )
+            ],
+          ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Image.asset(
                 Assets.APP_LOGO,
-                width: animation!.value * 180,
-                height: animation!.value * 180,
+                scale: 0.3,
+                width: animation!.value * 210,
+                height: animation!.value * 210,
               ),
               SizedBox(height: 20),
               Text(

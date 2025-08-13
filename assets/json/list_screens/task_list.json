@@ -1,0 +1,18 @@
+{   
+    "end_point": "load Screen",
+    "tab_count": 4,
+    "tab_list" : [
+        {
+            "lable": "Ongoing"
+        },
+        {
+            "lable": "Upcomming"
+        },
+        {
+            "lable": "Completed"
+        },
+        {
+            "lable": "Due"
+        }
+    ]
+}

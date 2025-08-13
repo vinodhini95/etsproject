@@ -34,7 +34,9 @@ class MyApp extends StatelessWidget {
         ],
         theme: ThemeData(
           useMaterial3: false,
+          primaryColor: Color.fromARGB(255, 178, 17, 6),
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple,
+
           primary: const Color.fromARGB(255, 178, 17, 6)),
         ),
         home: const SplashScreen(), 
