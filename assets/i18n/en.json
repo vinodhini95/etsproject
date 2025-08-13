@@ -1,5 +1,12 @@
 {
   "APP_NAME": "ETS",
   "INSTALLATION_TITLE_TEXT":"Enter your installation key",
-  "LET_START_TEXT": "Continue"
+  "LET_START_TEXT": "Continue",
+   "LOGIN_TITLE": "EATTS",
+    "EMAIL_ID": "Email Id / User Id",
+    "PASSWORD": "Password",
+    "EMAIL_IS_REQUIED": "Email ID is required",
+    "EMAIL_VALID": "Enter valid Email ID",
+    "ENTER_PASSWORD": "Password is required",
+    "BTN_LOGIN": "Login"
 }

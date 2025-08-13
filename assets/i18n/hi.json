@@ -1,5 +1,12 @@
 {
   "APP_NAME": "ETS",
-  "INSTALLATION_TITLE_TEXT": "अपनी इंस्टॉलेशन कुंजी दर्ज करें",
-  "LET_START_TEXT": "जारी रखें"
+  "INSTALLATION_TITLE_TEXT": "अपना इंस्टॉलेशन की दर्ज करें",
+  "LET_START_TEXT": "जारी रखें",
+  "LOGIN_TITLE": "रीगल फार्म इंडस्ट्रीज प्रा. लि.",
+  "EMAIL_ID": "ईमेल आईडी / उपयोगकर्ता आईडी",
+  "PASSWORD": "पासवर्ड",
+  "EMAIL_IS_REQUIED": "ईमेल आईडी आवश्यक है",
+  "EMAIL_VALID": "मान्य ईमेल आईडी दर्ज करें",
+  "ENTER_PASSWORD": "पासवर्ड आवश्यक है",
+  "BTN_LOGIN": "लॉगिन"
 }

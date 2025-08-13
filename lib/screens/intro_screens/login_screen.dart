@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:ets/dynamic_widget/app_auth_button.dart';
 import 'package:ets/dynamic_widget/apptext_formfield.dart';
 import 'package:ets/dynamic_widget/center_image.dart';
+import 'package:ets/screens/home/applay_out.dart';
 import 'package:ets/utils/assets.dart';
 import 'package:ets/utils/dara_validator.dart';
 import 'package:ets/utils/date_format.dart' show Validator;
@@ -45,7 +46,10 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void loginButtonPressed(BuildContext context) async {
-   
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) =>  CardHome()),
+    );
   }
 
   @override
