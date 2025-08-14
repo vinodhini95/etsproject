@@ -2,8 +2,18 @@
   "appbar": "Team Member",
   "end_point": "loadEmployees",
   "tab_count": 0,
-  "showtab": false,
+  "showtab": true,
   "is_employee":true,
+  "tab_list" : [
+        {
+            "lable": "Ongoing",
+            "key": "ongoing"
+        },
+        {
+            "lable": "Upcoming",
+            "key": "upcoming"
+        }
+    ],
   "screen_path":"assets/json/sample_data/employee_list.json",
   "fields": [
     {

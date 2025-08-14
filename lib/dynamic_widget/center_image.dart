@@ -19,7 +19,7 @@ class CenterImage extends StatelessWidget {
           scale: 0.6,
         ) :Image.asset(
           imagePath,
-          scale: 0.3,
+          scale: 2,
         ),
       ),
     );

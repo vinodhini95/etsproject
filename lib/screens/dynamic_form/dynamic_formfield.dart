@@ -195,7 +195,7 @@ class _DynamicFormFieldBuilderState extends State<DynamicFormFieldBuilder> {
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
-            elevation: 0,
+            elevation: 5,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -203,7 +203,7 @@ class _DynamicFormFieldBuilderState extends State<DynamicFormFieldBuilder> {
                 Center(
                   child: Image.asset(
                     fieldData['image'],
-                    height: 50,
+                    height: 30,
                     color: Helper()
                         .hashToHex(fieldData["text_color"] ?? "#195f49"),
                     fit: BoxFit.cover,
@@ -219,7 +219,7 @@ class _DynamicFormFieldBuilderState extends State<DynamicFormFieldBuilder> {
                       color: Helper()
                           .hashToHex(fieldData["text_color"] ?? "#195f49"),
                       fontWeight: FontWeight.bold,
-                      fontSize: 14),
+                      fontSize: 12),
                 ),
               ],
             ),
@@ -242,9 +242,10 @@ class _DynamicFormFieldBuilderState extends State<DynamicFormFieldBuilder> {
         List<dynamic> children = fieldData["children"];
         return GridView.count(
           shrinkWrap: true,
-          crossAxisSpacing: 5.0,
-          mainAxisSpacing: 15.0,
-          crossAxisCount: 2,
+          crossAxisSpacing: 10.0,
+          mainAxisSpacing: 10.0,
+          crossAxisCount: 3,
+          
           children: List.generate(children.length, (index) {
             return buildFormField(context, children[index], formKey);
           }),

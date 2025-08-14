@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:ets/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -25,172 +24,215 @@ class _DynamicListViewState extends State<DynamicListView>
 
   Future<void> loadJson() async {
     final String jsonString =
-        await rootBundle.loadString('assets/json/sample_data/tasks.json');
+        await rootBundle.loadString(widget.configdata["screen_path"]);
     final data = json.decode(jsonString);
 
     setState(() {
-      tasks = data; // directly using your JSON list
-      _tabController =
-          TabController(length: widget.configdata["tab_count"], vsync: this);
+      tasks = data;
+      if (widget.configdata["showtab"] == true) {
+        _tabController = TabController(
+          length: widget.configdata["tab_list"]?.length ?? 0,
+          vsync: this,
+        );
+      }
     });
   }
 
- String getScheduleStatus(Map<String, dynamic> task) {
-  final today = DateTime.now();
+  String formatValue(dynamic value, Map<String, dynamic> field) {
+    if (value == null) return "";
 
-  // Safely get schedule date
-  String? dateStr = task["schedule_start_date"]?["\$date"];
-  if (dateStr == null) return "No Date";
-
-  final scheduleDate = DateTime.tryParse(dateStr);
-  if (scheduleDate == null) return "No Date";
-
-  if (task["task_status"]?.toString().toUpperCase() == "COMPLETED") {
-    return "Completed";
-  } else if (isSameDay(scheduleDate, today)) {
-    return "Ongoing";
-  } else if (scheduleDate.isAfter(today)) {
-    return "Upcoming";
-  } else {
-    return "Due";
-  }
-}
-
-
-  bool isSameDay(DateTime d1, DateTime d2) {
-    return d1.year == d2.year && d1.month == d2.month && d1.day == d2.day;
-  }
-
-  List<dynamic> getTasksBySchedule(String scheduleKey) {
-    return tasks.where((task) {
-      return getScheduleStatus(task).toLowerCase() ==
-          scheduleKey.toLowerCase();
-    }).toList();
-  }
-
-  Widget buildTaskList(String scheduleKey) {
-    var filteredTasks = getTasksBySchedule(scheduleKey);
-
-    if (filteredTasks.isEmpty) {
-      return const Center(child: Text("No tasks found"));
+    if (value is Map && value.containsKey("\$date")) {
+      value = value["\$date"];
     }
 
-    return ListView.builder(
-      itemCount: filteredTasks.length,
-      itemBuilder: (context, index) {
-        var task = filteredTasks[index];
-        String scheduleStatus = getScheduleStatus(task);
-        String projectName = task["project_id"] ?? "";
-        String buildingName = task["building_name"] ?? "";
-        DateTime scheduleDate =
-            DateTime.parse(task["schedule_start_date"]["\$date"].toString());
+    switch (field["type"]) {
+      case "dateTime":
+        DateTime? date;
+        if (value is String) {
+          date = DateTime.tryParse(value);
+        }
+        if (date != null) {
+          if (field["formate"] == "local") {
+            date = date.toLocal();
+          }
+          return DateFormat("dd-MMM-yyyy").format(date);
+        }
+        break;
+      default:
+        return value.toString();
+    }
+    return "";
+  }
 
-        return Card(
-          margin: const EdgeInsets.all(8),
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
+  Color parseColor(String? colorName) {
+    switch (colorName) {
+      case "PrimaryColor":
+        return Theme.of(context).primaryColor;
+      case "blackColor":
+        return Colors.black;
+      case "whiteColor":
+        return Colors.white;
+      default:
+        return Colors.black;
+    }
+  }
+
+ Widget buildCard(Map<String, dynamic> task) {
+  var fields = widget.configdata["fields"];
+  var leftFields = fields.take(2).toList();
+  var rightFields = fields.skip(2).toList();
+
+  return Container(
+    decoration: const BoxDecoration(
+      border: Border(
+        bottom: BorderSide(color: Colors.grey, width: 1), // underline
+      ),
+    ),
+    padding: const EdgeInsets.all(12),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        // LEFT SIDE
+        Row(
+          children: [
+            widget.configdata["is_employee"] == true
+                ? CircleAvatar(
+                    radius: 25,
+                    backgroundColor: Colors.grey.shade300,
+                    child: Icon(Icons.person, color: Colors.grey.shade700),
+                  )
+                : const SizedBox.shrink(),
+            const SizedBox(width: 10),
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Project and building
-                Text(
-                  "$projectName${buildingName.isNotEmpty ? " - $buildingName" : ""}",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+              children: leftFields.map<Widget>((field) {
+                dynamic rawValue = task[field["value"]];
+                String displayValue = formatValue(rawValue, field);
+                return Text(
+                  displayValue,
+                  style: TextStyle(
+                    fontSize:
+                        (field["style"]?["fontSize"] ?? 14).toDouble(),
+                    fontWeight: field["style"]?["fontWeight"] == "bold"
+                        ? FontWeight.bold
+                        : FontWeight.normal,
+                    color: parseColor(field["style"]?["color"]),
                   ),
-                ),
-
-                const SizedBox(height: 4),
-
-                // Task Name
-                Text(
-                  task['name'] ?? "",
-                  style: const TextStyle(fontSize: 15),
-                ),
-
-                const SizedBox(height: 8),
-
-                // Bottom row with date and status
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const SizedBox.shrink(),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          DateFormat("dd-MMM-yyyy").format(scheduleDate),
-                          style: const TextStyle(color: Colors.grey),
-                        ),
-                        Text(
-                          scheduleStatus,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: scheduleStatus == "Upcoming"
-                                ? Colors.blue
-                                : scheduleStatus == "Ongoing"
-                                    ? Colors.green
-                                    : scheduleStatus == "Completed"
-                                        ? Colors.grey
-                                        : Colors.red,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
+                );
+              }).toList(),
             ),
-          ),
-        );
+          ],
+        ),
+
+        // RIGHT SIDE
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: rightFields.map<Widget>((field) {
+            dynamic rawValue = task[field["value"]];
+            String displayValue = formatValue(rawValue, field);
+            return Text(
+              displayValue,
+              style: TextStyle(
+                fontSize: (field["style"]?["fontSize"] ?? 14).toDouble(),
+                fontWeight: field["style"]?["fontWeight"] == "bold"
+                    ? FontWeight.bold
+                    : FontWeight.normal,
+                color: parseColor(field["style"]?["color"]),
+              ),
+            );
+          }).toList(),
+        ),
+      ],
+    ),
+  );
+}
+  List<Map<String, dynamic>> filterTasks(String key) {
+    DateTime now = DateTime.now();
+    var dateField = widget.configdata["fields"]
+        .firstWhere((f) => f["type"] == "dateTime", orElse: () => null);
+
+    if (dateField == null) return [];
+
+    return tasks
+        .where((task) {
+          var rawValue = task[dateField["value"]];
+          DateTime? taskDate;
+          if (rawValue is String) {
+            taskDate = DateTime.tryParse(rawValue);
+          } else if (rawValue is Map && rawValue.containsKey("\$date")) {
+            taskDate = DateTime.tryParse(rawValue["\$date"]);
+          }
+          if (taskDate == null) return false;
+
+          switch (key) {
+            case "ongoing":
+              return taskDate.isBefore(now) &&
+                  taskDate.isAfter(now.subtract(Duration(days: 1)));
+            case "upcoming":
+              return taskDate.isAfter(now);
+            case "completed":
+              return taskDate.isBefore(now);
+            case "due":
+              return taskDate.isBefore(now) &&
+                  taskDate.isAfter(now.subtract(Duration(days: 7)));
+            default:
+              return true;
+          }
+        })
+        .map((e) => Map<String, dynamic>.from(e))
+        .toList();
+  }
+
+  Widget buildList(List<dynamic> listData) {
+    if (listData.isEmpty) {
+      return const Center(child: Text("No data found"));
+    }
+    return ListView.builder(
+      itemCount: listData.length,
+      itemBuilder: (context, index) {
+        return buildCard(listData[index]);
       },
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_tabController == null) {
+    if (tasks.isEmpty) {
       return const Scaffold(
         body: Center(child: CircularProgressIndicator()),
       );
     }
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          color: whiteButtonColor,
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: const Text("Task List"),
-      ),
-      body: Column(
-        children: [
-          TabBar(
-            controller: _tabController,
-            isScrollable: true,
-            dividerColor: greyColor,
-            labelColor: Theme.of(context).primaryColor,
-            unselectedLabelColor: Theme.of(context).primaryColor,
-            indicatorColor: Theme.of(context).primaryColor,
-            tabs: widget.configdata["tab_list"].map<Widget>((status) {
-              int count = getTasksBySchedule(status['lable']).length;
-              return Tab(text: "${status['lable']} ($count)");
-            }).toList(),
-          ),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: widget.configdata["tab_list"]
-                  .map<Widget>((status) => buildTaskList(status['lable']))
-                  .toList(),
-            ),
-          ),
-        ],
-      ),
+      appBar:
+          AppBar(title: Text(widget.configdata["appbar"] ?? "Dynamic List")),
+      body: widget.configdata["showtab"] == true
+          ? Column(
+              children: [
+                TabBar(
+                  controller: _tabController,
+                  isScrollable: true,
+                  indicatorColor: Theme.of(context).colorScheme.primary,
+                  labelColor: Theme.of(context).primaryColor,
+                  unselectedLabelColor: Colors.black,
+                  tabs: widget.configdata["tab_list"].map<Widget>((tab) {
+                    String key = tab["key"];
+                    int count = filterTasks(key).length;
+                    return Tab(text: "${tab["lable"]} ($count)");
+                  }).toList(),
+                ),
+                Expanded(
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: widget.configdata["tab_list"].map<Widget>((tab) {
+                      String key = tab["key"];
+                      return buildList(filterTasks(key));
+                    }).toList(),
+                  ),
+                ),
+              ],
+            )
+          : buildList(tasks),
     );
   }
 }

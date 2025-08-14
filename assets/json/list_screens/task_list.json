@@ -1,6 +1,9 @@
-{   
+{   "appbar": "Task List",
     "end_point": "load Screen",
     "tab_count": 4,
+    "showtab": true,
+    "is_employee":false,
+    "screen_path":"assets/json/sample_data/tasks.json",
     "tab_list" : [
         {
             "lable": "Ongoing",
@@ -18,5 +21,37 @@
             "lable": "Due",
             "key": "due"
         }
-    ]
+    ],
+     "fields": [
+    {
+      "label": "Task Name",
+      "value": "name",
+      "title": true,
+      "type": "string",
+      "style": {
+        "fontSize": 16,
+        "color": "PrimaryColor",
+        "fontWeight": "bold"
+      }
+    },
+    {
+      "label": "Project",
+      "value": "project_id",
+      "type": "number",
+      "style": {
+        "fontSize": 16,
+        "color": "blackColor"
+      }
+    },
+     {
+            "label": "Schedule Date",
+            "value": "schedule_start_date",
+            "formate": "local",
+            "type":"dateTime",
+            "style": {
+                "fontSize": 16,
+                "color": "blackColor"
+            }
+        }
+  ]
 }

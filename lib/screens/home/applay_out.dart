@@ -71,7 +71,7 @@ class _CardHomeState extends State<CardHome> {
         backgroundColor: Theme.of(context).primaryColor,
         leading: Padding(
           padding: EdgeInsets.only(left: 17),
-          child: Image.asset(Assets.APP_LOGO,color: whiteButtonColor,),
+          child: Image.asset(Assets.APP_LOGO),
         ),
         actions: [
           Builder(
@@ -80,7 +80,6 @@ class _CardHomeState extends State<CardHome> {
               icon: Icon(Icons.menu),
               onPressed: () {
                 Scaffold.of(context).openEndDrawer();
-                ;
               },
             ),
           ),

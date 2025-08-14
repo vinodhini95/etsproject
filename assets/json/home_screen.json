@@ -19,12 +19,8 @@
                     "image": "assets/images/task_list.png",
                     "onTap": {
                         "type": "navigate",
-                        "screenName": "RcnInward",
-                        "process_code": "COK",
-                        "screen_path": "assets/json/list_screens/task_list.json",
-                        "euipment_type": "ST",
-                        "template_based": false,
-                        "get_local_data": true
+                        "screenName": "Task list",
+                        "screen_path": "assets/json/list_screens/task_list.json"
                     }
                 },
                 {
@@ -35,12 +31,8 @@
                     "card_color":"#ebb1b4",
                     "onTap": {
                         "type": "navigate",
-                        "screenName": "ShellingScreen",
-                        "euipment_type": "SH",
-                        "process_code": "SH",
-                        "screen_path": "Shelling-view",
-                        "template_based":true,
-                        "get_local_data": true
+                        "screenName": "Team Member",
+                        "screen_path": "assets/json/list_screens/employee_list.json"
                     }
                 },
                 {
@@ -51,12 +43,8 @@
                     "image": "assets/images/sign_in_logo.png",
                     "onTap": {
                         "type": "navigate",
-                        "screenName": "BormaHomeScreen",
-                        "euipment_type": "BO",
-                        "screen_path":"Borma-view",
-                        "process_code":"BOR",
-                        "template_based":false,
-                        "get_local_data": true
+                        "screenName": "Sign-In",
+                        "screen_path":"assets/json/list_screens/employee_list.json"
                     }
                 },
                 {
@@ -67,12 +55,8 @@
                     "image": "assets/images/activity_log.png",
                     "onTap": {
                         "type": "navigate",
-                        "screenName": "CoolingHomeScreen",
-                        "screen_path":"Cooling-view",
-                        "euipment_type": "CR",
-                        "process_code":"CR",
-                        "template_based":false,
-                        "get_local_data": true
+                        "screenName": "Activity Log",
+                        "screen_path":"assets/json/list_screens/employee_list.json"
                     }
                 },
                 {
@@ -83,13 +67,8 @@
                     "image": "assets/images/sign-out.png",
                     "onTap": {
                         "type": "navigate",
-                        "screenName": "PeelingInProgress",
-                        "euipment_type": "PE",
-                        "process_code": "MACP",
-                        "screen_path":"Peeling-view",
-                        "template_based":true,
-                        "get_local_data": true,
-                        "show_tab":true
+                        "screenName": "Sign-Out",
+                        "screen_path":"assets/json/list_screens/employee_list.json"
                     }
                 },
                 {
@@ -100,13 +79,8 @@
                     "image": "assets/images/transfer.png",
                     "onTap": {
                         "type": "navigate",
-                        "screenName": "GradingInProgress",
-                        "euipment_type": "GR",
-                        "process_code":"MANG",
-                        "screen_path":"Grading-view",
-                        "template_based":true,
-                        "get_local_data": true,
-                        "show_tab":true
+                        "screenName": "Transfer",
+                        "screen_path":"assets/json/list_screens/employee_list.json"
                     }
                 }
             ]
