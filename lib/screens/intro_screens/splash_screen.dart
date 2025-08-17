@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:ets/screens/intro_screens/instalation.dart';
 import 'package:ets/screens/intro_screens/login_screen.dart';
 import 'package:ets/utils/assets.dart';
 import 'package:ets/utils/localization.dart';

@@ -44,7 +44,7 @@
                     "onTap": {
                         "type": "navigate",
                         "screenName": "Sign-In",
-                        "screen_path":"assets/json/list_screens/employee_list.json"
+                        "screen_path":"assets/json/list_screens/sign_in_list.json"
                     }
                 },
                 {

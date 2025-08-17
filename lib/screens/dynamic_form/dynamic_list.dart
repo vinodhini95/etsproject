@@ -1,7 +1,11 @@
 import 'dart:convert';
+import 'package:ets/dynamic_widget/app_elevator_button.dart';
+import 'package:ets/screens/dynamic_form/dynamic_view_screen.dart';
+import 'package:ets/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DynamicListView extends StatefulWidget {
   final dynamic configdata;
@@ -40,11 +44,9 @@ class _DynamicListViewState extends State<DynamicListView>
 
   String formatValue(dynamic value, Map<String, dynamic> field) {
     if (value == null) return "";
-
     if (value is Map && value.containsKey("\$date")) {
       value = value["\$date"];
     }
-
     switch (field["type"]) {
       case "dateTime":
         DateTime? date;
@@ -81,7 +83,6 @@ class _DynamicListViewState extends State<DynamicListView>
   var fields = widget.configdata["fields"];
   var leftFields = fields.take(2).toList();
   var rightFields = fields.skip(2).toList();
-
   return Container(
     decoration: const BoxDecoration(
       border: Border(
@@ -126,22 +127,40 @@ class _DynamicListViewState extends State<DynamicListView>
 
         // RIGHT SIDE
         Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: rightFields.map<Widget>((field) {
-            dynamic rawValue = task[field["value"]];
-            String displayValue = formatValue(rawValue, field);
-            return Text(
-              displayValue,
-              style: TextStyle(
-                fontSize: (field["style"]?["fontSize"] ?? 14).toDouble(),
-                fontWeight: field["style"]?["fontWeight"] == "bold"
-                    ? FontWeight.bold
-                    : FontWeight.normal,
-                color: parseColor(field["style"]?["color"]),
-              ),
-            );
-          }).toList(),
-        ),
+  crossAxisAlignment: CrossAxisAlignment.end,
+  children: rightFields.map<Widget>((field) {
+    dynamic rawValue = task[field["value"]];
+    String displayValue = formatValue(rawValue, field);
+
+    Widget textWidget = Text(
+      displayValue,
+      style: TextStyle(
+        fontSize: (field["style"]?["fontSize"] ?? 14).toDouble(),
+        fontWeight: field["style"]?["fontWeight"] == "bold"
+            ? FontWeight.bold
+            : FontWeight.normal,
+        color: parseColor(field["style"]?["color"]),
+      ),
+    );
+
+    if (field["type"] == "number") {
+      return GestureDetector(
+        onTap: () async {
+          final Uri uri = Uri(scheme: "tel", path: displayValue);
+          if (await canLaunchUrl(uri)) {
+            await launchUrl(uri);
+          } else {
+            throw 'Could not launch $displayValue';
+          }
+        },
+        child: textWidget,
+      );
+    }
+
+    return textWidget;
+  }).toList(),
+)
+
       ],
     ),
   );
@@ -150,6 +169,22 @@ class _DynamicListViewState extends State<DynamicListView>
     DateTime now = DateTime.now();
     var dateField = widget.configdata["fields"]
         .firstWhere((f) => f["type"] == "dateTime", orElse: () => null);
+
+    if(widget.configdata["is_employee"] == true) {
+      return tasks
+        .where((task) {
+          switch (key) {
+            case "absent":
+            return task["is_sign"] == false; // Absent if not signed
+            case "present":
+            return task["is_sign"] == true;     
+            default:
+              return true;
+          }
+        })
+        .map((e) => Map<String, dynamic>.from(e))
+        .toList();
+    }  
 
     if (dateField == null) return [];
 
@@ -174,7 +209,7 @@ class _DynamicListViewState extends State<DynamicListView>
               return taskDate.isBefore(now);
             case "due":
               return taskDate.isBefore(now) &&
-                  taskDate.isAfter(now.subtract(Duration(days: 7)));
+                  taskDate.isAfter(now.subtract(Duration(days: 7))); 
             default:
               return true;
           }
@@ -209,6 +244,16 @@ class _DynamicListViewState extends State<DynamicListView>
       body: widget.configdata["showtab"] == true
           ? Column(
               children: [
+                if(widget.configdata["is_employee"] == true)
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: AppEllevatedAuthButton(onPressed: () { 
+                     Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) =>  CameraDropdownScreen()),
+    );
+                   }, btnName: 'Sign-In',icons: Icons.login_rounded,iconIsrequired: true,primaryColor: Theme.of(context).primaryColor,textColor: whiteButtonColor,),
+                ),
                 TabBar(
                   controller: _tabController,
                   isScrollable: true,

@@ -27,6 +27,7 @@
     }
   ],
   "contractor_name": "WSA",
+  "is_sign": true,
   "created_on": {
     "$date": "2025-07-29T06:45:23.604Z"
   },
@@ -44,6 +45,7 @@
 },
 {
   "_id": "EMP00019",
+  "is_sign": false,
   "img": [
     {
       "file_name": "captured-image__20250724120712.png",

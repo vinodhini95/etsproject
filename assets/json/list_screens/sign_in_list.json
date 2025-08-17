@@ -1,17 +1,17 @@
 {
-  "appbar": "Team Member",
+  "appbar": "Sign IN",
   "end_point": "loadEmployees",
   "tab_count": 0,
   "showtab": true,
   "is_employee":true,
   "tab_list" : [
         {
-            "lable": "Ongoing",
-            "key": "ongoing"
+            "lable": "Absent",
+            "key": "absent"
         },
         {
-            "lable": "Upcoming",
-            "key": "upcoming"
+            "lable": "Present",
+            "key": "present"
         }
     ],
   "screen_path":"assets/json/sample_data/employee_list.json",
