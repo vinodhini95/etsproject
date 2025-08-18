@@ -79,112 +79,111 @@ class _DynamicListViewState extends State<DynamicListView>
     }
   }
 
- Widget buildCard(Map<String, dynamic> task) {
-  var fields = widget.configdata["fields"];
-  var leftFields = fields.take(2).toList();
-  var rightFields = fields.skip(2).toList();
-  return Container(
-    decoration: const BoxDecoration(
-      border: Border(
-        bottom: BorderSide(color: Colors.grey, width: 1), // underline
-      ),
-    ),
-    padding: const EdgeInsets.all(12),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        // LEFT SIDE
-        Row(
-          children: [
-            widget.configdata["is_employee"] == true
-                ? CircleAvatar(
-                    radius: 25,
-                    backgroundColor: Colors.grey.shade300,
-                    child: Icon(Icons.person, color: Colors.grey.shade700),
-                  )
-                : const SizedBox.shrink(),
-            const SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: leftFields.map<Widget>((field) {
-                dynamic rawValue = task[field["value"]];
-                String displayValue = formatValue(rawValue, field);
-                return Text(
-                  displayValue,
-                  style: TextStyle(
-                    fontSize:
-                        (field["style"]?["fontSize"] ?? 14).toDouble(),
-                    fontWeight: field["style"]?["fontWeight"] == "bold"
-                        ? FontWeight.bold
-                        : FontWeight.normal,
-                    color: parseColor(field["style"]?["color"]),
-                  ),
-                );
-              }).toList(),
-            ),
-          ],
+  Widget buildCard(Map<String, dynamic> task) {
+    var fields = widget.configdata["fields"];
+    var leftFields = fields.take(2).toList();
+    var rightFields = fields.skip(2).toList();
+    return Container(
+      decoration: const BoxDecoration(
+        border: Border(
+          bottom: BorderSide(color: Colors.grey, width: 1), // underline
         ),
+      ),
+      padding: const EdgeInsets.all(12),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          // LEFT SIDE
+          Row(
+            children: [
+              widget.configdata["is_employee"] == true
+                  ? CircleAvatar(
+                      radius: 25,
+                      backgroundColor: Colors.grey.shade300,
+                      child: Icon(Icons.person, color: Colors.grey.shade700),
+                    )
+                  : const SizedBox.shrink(),
+              const SizedBox(width: 10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: leftFields.map<Widget>((field) {
+                  dynamic rawValue = task[field["value"]];
+                  String displayValue = formatValue(rawValue, field);
+                  return Text(
+                    displayValue,
+                    style: TextStyle(
+                      fontSize: (field["style"]?["fontSize"] ?? 14).toDouble(),
+                      fontWeight: field["style"]?["fontWeight"] == "bold"
+                          ? FontWeight.bold
+                          : FontWeight.normal,
+                      color: parseColor(field["style"]?["color"]),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ],
+          ),
 
-        // RIGHT SIDE
-        Column(
-  crossAxisAlignment: CrossAxisAlignment.end,
-  children: rightFields.map<Widget>((field) {
-    dynamic rawValue = task[field["value"]];
-    String displayValue = formatValue(rawValue, field);
+          // RIGHT SIDE
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: rightFields.map<Widget>((field) {
+              dynamic rawValue = task[field["value"]];
+              String displayValue = formatValue(rawValue, field);
 
-    Widget textWidget = Text(
-      displayValue,
-      style: TextStyle(
-        fontSize: (field["style"]?["fontSize"] ?? 14).toDouble(),
-        fontWeight: field["style"]?["fontWeight"] == "bold"
-            ? FontWeight.bold
-            : FontWeight.normal,
-        color: parseColor(field["style"]?["color"]),
+              Widget textWidget = Text(
+                displayValue,
+                style: TextStyle(
+                  fontSize: (field["style"]?["fontSize"] ?? 14).toDouble(),
+                  fontWeight: field["style"]?["fontWeight"] == "bold"
+                      ? FontWeight.bold
+                      : FontWeight.normal,
+                  color: parseColor(field["style"]?["color"]),
+                ),
+              );
+
+              if (field["type"] == "number") {
+                return GestureDetector(
+                  onTap: () async {
+                    final Uri uri = Uri(scheme: "tel", path: displayValue);
+                    if (await canLaunchUrl(uri)) {
+                      await launchUrl(uri);
+                    } else {
+                      throw 'Could not launch $displayValue';
+                    }
+                  },
+                  child: textWidget,
+                );
+              }
+
+              return textWidget;
+            }).toList(),
+          )
+        ],
       ),
     );
+  }
 
-    if (field["type"] == "number") {
-      return GestureDetector(
-        onTap: () async {
-          final Uri uri = Uri(scheme: "tel", path: displayValue);
-          if (await canLaunchUrl(uri)) {
-            await launchUrl(uri);
-          } else {
-            throw 'Could not launch $displayValue';
-          }
-        },
-        child: textWidget,
-      );
-    }
-
-    return textWidget;
-  }).toList(),
-)
-
-      ],
-    ),
-  );
-}
   List<Map<String, dynamic>> filterTasks(String key) {
     DateTime now = DateTime.now();
     var dateField = widget.configdata["fields"]
         .firstWhere((f) => f["type"] == "dateTime", orElse: () => null);
 
-    if(widget.configdata["is_employee"] == true) {
+    if (widget.configdata["is_employee"] == true) {
       return tasks
-        .where((task) {
-          switch (key) {
-            case "absent":
-            return task["is_sign"] == false; // Absent if not signed
-            case "present":
-            return task["is_sign"] == true;     
-            default:
-              return true;
-          }
-        })
-        .map((e) => Map<String, dynamic>.from(e))
-        .toList();
-    }  
+          .where((task) {
+            switch (key) {
+              case "absent":
+                return task["is_sign"] == false; // Absent if not signed
+              case "present":
+                return task["is_sign"] == true;
+              default:
+                return true;
+            }
+          })
+          .map((e) => Map<String, dynamic>.from(e))
+          .toList();
+    }
 
     if (dateField == null) return [];
 
@@ -209,7 +208,7 @@ class _DynamicListViewState extends State<DynamicListView>
               return taskDate.isBefore(now);
             case "due":
               return taskDate.isBefore(now) &&
-                  taskDate.isAfter(now.subtract(Duration(days: 7))); 
+                  taskDate.isAfter(now.subtract(Duration(days: 7)));
             default:
               return true;
           }
@@ -244,16 +243,24 @@ class _DynamicListViewState extends State<DynamicListView>
       body: widget.configdata["showtab"] == true
           ? Column(
               children: [
-                if(widget.configdata["is_employee"] == true)
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: AppEllevatedAuthButton(onPressed: () { 
-                     Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) =>  CameraDropdownScreen()),
-    );
-                   }, btnName: 'Sign-In',icons: Icons.login_rounded,iconIsrequired: true,primaryColor: Theme.of(context).primaryColor,textColor: whiteButtonColor,),
-                ),
+                if (widget.configdata["is_employee"] == true)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: AppEllevatedAuthButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CameraDropdownScreen()),
+                        );
+                      },
+                      btnName: 'Take Photo',
+                      icons: Icons.login_rounded,
+                      iconIsrequired: true,
+                      primaryColor: Theme.of(context).primaryColor,
+                      textColor: whiteButtonColor,
+                    ),
+                  ),
                 TabBar(
                   controller: _tabController,
                   isScrollable: true,

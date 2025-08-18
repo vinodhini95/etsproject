@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:ets/dynamic_widget/dropdown_button.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/services.dart';
@@ -6,7 +7,10 @@ import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 class CameraDropdownScreen extends StatefulWidget {
+  const CameraDropdownScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _CameraDropdownScreenState createState() => _CameraDropdownScreenState();
 }
 
@@ -14,7 +18,91 @@ class _CameraDropdownScreenState extends State<CameraDropdownScreen> {
   CameraController? _controller;
   Future<void>? _initializeControllerFuture;
   String? selectedValue;
-  final List<String> dropdownItems = ["Option 1", "Option 2", "Option 3"];
+  final List<Map<String, dynamic>> dropdownItems = [
+    {
+      "_id": "TASK041",
+      "name": "Roofing",
+      "project_id": "LLY2F",
+      "task_owner": "d3a900f2daf34223b960c66a82bd634d",
+      "building_name": "HK1",
+      "created_on": {"\$date": "2025-08-02T09:50:56.553Z"},
+      "created_by": "sanjay",
+      "type": "TASK",
+      "status": "assigned",
+      "update_by": "sanjay",
+      "update_on": {"\$date": "2025-08-11T08:09:11.239Z"}
+    },
+    {
+      "_id": "ACTIVITY025",
+      "priority": "medium",
+      "created_on": {"\$date": "2025-08-06T08:09:29.565Z"},
+      "name": "painting",
+      "type": "ACTIVITY",
+      "parent_id": "TASK041",
+      "project_id": "LLY2F",
+      "status": "assigned",
+      "created_by": "sanjay",
+      "task_status": "OPEN",
+      "activity_type": "c698ff6a32a34371acf53c6a9313fc7c",
+      "schedule_start_date": {"\$date": "2025-08-07T18:30:00.000Z"},
+      "task_owner": "a8f73a41e1374a6f889d8da33d5bffab"
+    },
+    {
+      "_id": "ACTIVITY026",
+      "name": "Basement Pillar",
+      "task_status": "OPEN",
+      "type": "ACTIVITY",
+      "parent_id": "TASK036",
+      "activity_type": "fc650582-6d46-42b5-8f96-d3bc6a6526c0",
+      "schedule_start_date": {"\$date": "2025-08-09T18:30:00.000Z"},
+      "priority": "medium",
+      "project_id": "LLOYDS",
+      "task_owner": "7e04c32238184792ba09891eb1924154",
+      "status": "assigned",
+      "created_on": {"\$date": "2025-08-06T09:50:28.689Z"},
+      "created_by": "sanjay"
+    },
+    {
+      "_id": "TASK045",
+      "project_id": "LLOYDS",
+      "type": "TASK",
+      "created_on": {"\$date": "2025-08-11T13:02:43.227Z"},
+      "task_owner": "06378cfc09194a05ac9b39a5f997556b",
+      "building_name": "Block D",
+      "status": "assigned",
+      "created_by": "sanjay",
+      "name": "Structural Work"
+    },
+    {
+      "_id": "ACTIVITY028",
+      "activity_type": "6bda49c0-1ff5-4e52-bf98-2d8e24870c4a",
+      "task_owner": "782eb96fd63e43eeaacd7a9925fd0c7a",
+      "created_on": {"\$date": "2025-08-11T13:03:08.559Z"},
+      "created_by": "sanjay",
+      "name": "Steel Reinforcement",
+      "task_status": "OPEN",
+      "schedule_start_date": {"\$date": "2025-08-19T18:30:00.000Z"},
+      "status": "assigned",
+      "type": "ACTIVITY",
+      "parent_id": "TASK045",
+      "project_id": "LLOYDS"
+    },
+    {
+      "_id": "ACTIVITY029",
+      "type": "ACTIVITY",
+      "parent_id": "TASK041",
+      "task_owner": "4e90976a378348d0b3bf34d2f44398cd",
+      "status": "assigned",
+      "created_by": "sanjay",
+      "name": "constructing divider",
+      "task_status": "OPEN",
+      "project_id": "LLY2F",
+      "activity_type": "a3028340-c338-4ed3-8c35-3f0a47eaf9fc",
+      "schedule_start_date": {"\$date": "2025-08-12T18:30:00.000Z"},
+      "priority": "low",
+      "created_on": {"\$date": "2025-08-11T13:32:48.638Z"}
+    }
+  ];
 
   // Extra states
   late FaceDetector _faceDetector;
@@ -144,8 +232,7 @@ class _CameraDropdownScreenState extends State<CameraDropdownScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          AppBar(title: Text( "Dynamic View")),
+      appBar: AppBar(title: Text("Dynamic View")),
       body: Column(
         children: [
           // Top half: Camera preview
@@ -186,20 +273,14 @@ class _CameraDropdownScreenState extends State<CameraDropdownScreen> {
             flex: 1,
             child: Center(
               child: _capturedPath == null
-                  ? DropdownButton<String>(
-                      value: selectedValue,
-                      hint: Text("Select an option"),
-                      items: dropdownItems.map((item) {
-                        return DropdownMenuItem(
-                          value: item,
-                          child: Text(item),
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          selectedValue = value;
-                        });
-                      },
+                  ? Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: DropDownButtonwidgetMap(
+                        isrequired: true,
+                        hintText: "Select Task",
+                        listArrayValues: dropdownItems,
+                        isImageRequired: false,
+                      ),
                     )
                   : Image.file(File(_capturedPath!)),
             ),

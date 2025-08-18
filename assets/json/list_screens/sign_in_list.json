@@ -42,7 +42,7 @@
       "formate": "local",
       "type": "number",
       "style": {
-        "fontSize": 16,
+        "fontSize": 12,
         "color": "blackColor"
       }
     }
