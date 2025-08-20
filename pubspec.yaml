@@ -33,6 +33,14 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
+  # ObjectBox
+  objectbox: ^2.0.0
+  objectbox_flutter_libs: ^2.0.0
+  # ML & Camera
+  google_mlkit_face_detection: ^0.13.1
+  speech_to_text: any
+  tflite_flutter: ^0.11.0
+  image: ^4.0.17
   cupertino_icons: ^1.0.8
   pin_code_fields: ^8.0.1
   provider: ^6.1.5
@@ -46,18 +54,25 @@ dependencies:
   uuid: ^4.5.1
   shared_preferences: ^2.5.3
   camera: any
-  google_mlkit_face_detection: ^0.11.0
-  speech_to_text: any
+  
+  
   url_launcher: any
   dropdown_button2: ^2.3.9
+  device_info_plus: ^11.5.0
+  connectivity_plus: ^6.1.5
+  tensorflow_face_verification: ^0.1.2
 
-
+dependency_overrides:
+  analyzer: ^6.9.0 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
   intl: any
+   # ObjectBox code generation
+  build_runner: any
+  objectbox_generator: any
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

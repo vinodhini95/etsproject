@@ -1,10 +1,11 @@
+import 'package:ets/local_db.dart';
 import 'package:ets/screens/intro_screens/splash_screen.dart';
 import 'package:ets/utils/initialition_package.dart';
 import 'package:ets/utils/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-
+late LocalDB localDB;
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());

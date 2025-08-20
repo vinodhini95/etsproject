@@ -238,29 +238,29 @@ class _DynamicListViewState extends State<DynamicListView>
     }
 
     return Scaffold(
+      floatingActionButton: widget.configdata["is_employee"] == true
+    ? FloatingActionButton.extended(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CameraDropdownScreen(),
+            ),
+          );
+        },
+        icon: const Icon(Icons.camera_alt), // your icon
+        label: const Text(
+          "Take Photo",
+          style: TextStyle(color: Colors.white), // text color
+        ),
+      )
+    : null,
       appBar:
           AppBar(title: Text(widget.configdata["appbar"] ?? "Dynamic List")),
       body: widget.configdata["showtab"] == true
           ? Column(
               children: [
-                if (widget.configdata["is_employee"] == true)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: AppEllevatedAuthButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CameraDropdownScreen()),
-                        );
-                      },
-                      btnName: 'Take Photo',
-                      icons: Icons.login_rounded,
-                      iconIsrequired: true,
-                      primaryColor: Theme.of(context).primaryColor,
-                      textColor: whiteButtonColor,
-                    ),
-                  ),
                 TabBar(
                   controller: _tabController,
                   isScrollable: true,

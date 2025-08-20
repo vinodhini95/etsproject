@@ -4,6 +4,57 @@ import 'package:ets/service/config/config.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 class ApiService {
+  Future<dynamic> authpostMethod(String url, dynamic data) async {
+
+    var headers = {
+      "Content-Type": "application/json",
+    };
+
+    try {
+      var response = await http.post(
+        Uri.parse("$BASE_URL$url"),
+        headers: headers,
+        body: jsonEncode(data),
+      );
+
+
+      Map<String, dynamic> result = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        return {
+          "status": response.statusCode,
+          "data": result["data"] ?? [],
+        };
+      } else if (response.statusCode == 400) {
+        return {
+          "status": 400,
+          "data": {
+            "message": result['message'],
+          }
+        };
+      } else if (response.statusCode == 500) {
+        var text = (response.body.toString());
+        print(text);
+        return {
+          "status": response.statusCode,
+          "data": {
+            "message": "Network issue",
+          }
+        };
+      } else {
+        var result = jsonDecode(response.body);
+        return result;
+      }
+    } catch (error) {
+      print('Error occurred: $error["message"]');
+      return {
+        "status": "error",
+        "network": true,
+        "message": "An error occurred",
+        "details": error.toString(),
+      };
+    }
+  }
+
   Future<dynamic> postMethod(String url, dynamic data) async {
     print('$BASE_URL${url}');
     String token = await getToken();

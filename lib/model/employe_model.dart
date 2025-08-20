@@ -1,4 +1,10 @@
+import 'package:objectbox/objectbox.dart';
+
+@Entity()
+@Property(uid: 8124089256188265815)
 class EmployeeDetails {
+   @Id()
+  int id = 0;
 	String? sId;
 	String? bloodGroup;
 	String? createdBy;
@@ -11,8 +17,12 @@ class EmployeeDetails {
 	String? status;
 	String? supervisorId;
 	String? tradeType;
+  @Unique()
+  String? labourId;
+  String? faceEmbedding;
+  DateTime? createdDate;
 
-	EmployeeDetails({this.sId, this.bloodGroup, this.createdBy, this.createdOn, this.dob, this.employmentType, this.hierarchyId, this.mobileNo, this.name, this.status, this.supervisorId, this.tradeType});
+	EmployeeDetails({this.sId,this.faceEmbedding,this.labourId, this.createdDate ,this.bloodGroup, this.createdBy, this.createdOn, this.dob, this.employmentType, this.hierarchyId, this.mobileNo, this.name, this.status, this.supervisorId, this.tradeType});
 
 	EmployeeDetails.fromJson(Map<String, dynamic> json) {
 		sId = json['_id'];
@@ -27,6 +37,9 @@ class EmployeeDetails {
 		status = json['status'];
 		supervisorId = json['supervisor_id'];
 		tradeType = json['trade_type'];
+    faceEmbedding = json["faceEmbedding"];
+    labourId = json["_id"];
+    createdDate = json["created_on"];
 	}
 
 	Map<String, dynamic> toJson() {

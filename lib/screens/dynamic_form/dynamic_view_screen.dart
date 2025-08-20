@@ -1,9 +1,11 @@
 import 'dart:io';
 import 'package:ets/dynamic_widget/dropdown_button.dart';
+import 'package:ets/provider/camera_service.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
+import 'package:provider/provider.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 class CameraDropdownScreen extends StatefulWidget {
@@ -17,6 +19,8 @@ class CameraDropdownScreen extends StatefulWidget {
 class _CameraDropdownScreenState extends State<CameraDropdownScreen> {
   CameraController? _controller;
   Future<void>? _initializeControllerFuture;
+  bool _isCameraInitialized = false;
+  String? _recognizedEmployee;
   String? selectedValue;
   final List<Map<String, dynamic>> dropdownItems = [
     {
@@ -107,6 +111,8 @@ class _CameraDropdownScreenState extends State<CameraDropdownScreen> {
   // Extra states
   late FaceDetector _faceDetector;
   late SpeechToText _speech;
+  bool _isLoading = false;
+  String? _statusMessage;
   bool _cheeseSaid = false;
   bool _isDetecting = false;
   String? _capturedPath;
@@ -154,6 +160,124 @@ class _CameraDropdownScreenState extends State<CameraDropdownScreen> {
           setState(() => _cheeseSaid = true);
         }
       });
+    }
+  }
+Future<void> _toggleCamera() async {
+    if (!_isCameraInitialized) return;
+      final cameraService = context.read<CameraService>();
+       await cameraService.switchCamera();
+  }
+  Future<void> _recognizeFace() async {
+    if (!_isCameraInitialized) return;
+    
+    setState(() {
+      _isLoading = true;
+      _statusMessage = 'Capturing image...';
+    });
+
+    try {
+     final cameraService = context.read<CameraService>();
+final CapturedImage? capturedImage = await cameraService.takePicture();
+
+if (capturedImage == null) {
+  throw Exception('Failed to capture image');
+}
+
+// imageBytes is already available
+final Uint8List imageBytes = capturedImage.bytes;
+final String imagePath = capturedImage.path;
+
+print('📂 Image Path: $imagePath');
+
+setState(() {
+  _statusMessage = 'Verifying image...';
+});
+ 
+      // Verify image quality and face presence
+      final isValid = await _verifyImage(imageBytes,imagePath);
+      if (!isValid) {
+        throw Exception('Image verification failed. Please try again with better lighting and face positioning.');
+      }
+
+      setState(() {
+        _statusMessage = 'Recognizing face...';
+      });
+      
+      final faceService = context.read<FaceRecognitionService>();
+      
+      // Load registered employees from database
+      final registeredEmployees = <Employee>[];
+      try {
+        final employees = await DatabaseService.getAllEmployees();
+        registeredEmployees.addAll(employees);
+      } catch (e) {
+        print('Error loading employees: $e');
+      }
+      
+      final result = await faceService.recognizeFace(
+        imageBytes: imageBytes,
+        imagePath:imagePath,
+        registeredEmployees: registeredEmployees,
+      );
+
+      if (result.success && result.matchedEmployee != null) {
+        setState(() {
+          _recognizedEmployee = result.matchedEmployee!.name;
+          _confidence = result.confidence;
+          _statusMessage = 'Face recognized successfully!';
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Welcome ${result.matchedEmployee!.name}!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      } else {
+        setState(() {
+          _recognizedEmployee = null;
+          _confidence = result.confidence;
+          _statusMessage = result.message;
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(result.message),
+            backgroundColor: Colors.orange,
+          ),
+        );
+      }
+
+    } catch (e) {
+      setState(() {
+        _statusMessage = 'Error: ${e.toString()}';
+      });
+      
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+          backgroundColor: Colors.red,
+        ),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  Future<bool> _verifyImage(Uint8List imageBytes,String imagePath) async {
+    try { 
+      // Use face detection service to verify face presence
+      final faceDetectionService = FaceDetectionService();
+      await faceDetectionService.initialize();
+          final inputImage = InputImage.fromFilePath(imagePath);
+
+      final faces = await faceDetectionService.detectFaces(inputImage);
+      
+      return faces.isNotEmpty;
+    } catch (e) {
+      return false;
     }
   }
 
@@ -246,7 +370,17 @@ class _CameraDropdownScreenState extends State<CameraDropdownScreen> {
                       if (snapshot.connectionState == ConnectionState.done) {
                         return Stack(
                           children: [
-                            CameraPreview(_controller!),
+                            Expanded(
+                              child: Container(
+                                height: 300,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  border:
+                                      Border.all(color: Colors.grey.shade300),
+                                ),
+                                child: _buildCameraPreview(),
+                              ),
+                            ),
                             if (_cheeseSaid)
                               Center(
                                 child: Container(
@@ -267,7 +401,44 @@ class _CameraDropdownScreenState extends State<CameraDropdownScreen> {
                     },
                   ),
           ),
-
+           if (_recognizedEmployee != null) ...[
+              Card(
+                child: Padding(
+                  padding: EdgeInsets.all(16.w),
+                  child: Column(
+                    children: [
+                      Icon(
+                        Icons.check_circle,
+                        color: Colors.green,
+                        size: 48.w,
+                      ),
+                      SizedBox(height: 8.h),
+                      Text(
+                        'Welcome!',
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        _recognizedEmployee!,
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          color: Colors.green,
+                        ),
+                      ),
+                      Text(
+                        'Confidence: ${_confidence.toStringAsFixed(1)}%',
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          color: Colors.grey.shade600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 16.h),
           // Bottom half: Dropdown or captured image
           Expanded(
             flex: 1,
@@ -289,4 +460,39 @@ class _CameraDropdownScreenState extends State<CameraDropdownScreen> {
       ),
     );
   }
+   Widget _buildCameraPreview() {
+    if (!_isCameraInitialized) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircularProgressIndicator(),
+            SizedBox(height: 16),
+            Text(
+              'Initializing Camera...',
+              style: TextStyle(fontSize: 16),
+            ),
+          ],
+        ),
+      );
+    }
+
+    final cameraService = context.watch<CameraService>();
+    
+    if (!cameraService.isCameraReady || cameraService.controller == null) {
+      return Center(
+        child: Text(
+          'Camera not ready',
+          style: TextStyle(fontSize: 16),
+        ),
+      );
+    }
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(15),
+      child: CameraPreview(cameraService.controller!),
+    );
+  }
 }
+
+

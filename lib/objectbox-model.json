@@ -1,0 +1,109 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:8563377791112157248",
+      "lastPropertyId": "16:8550115732522719415",
+      "name": "EmployeeDetails",
+      "properties": [
+        {
+          "id": "1:8376471784669803994",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5846812338700248403",
+          "name": "sId",
+          "type": 9
+        },
+        {
+          "id": "3:7130249209748264536",
+          "name": "bloodGroup",
+          "type": 9
+        },
+        {
+          "id": "4:1625125863153439836",
+          "name": "createdBy",
+          "type": 9
+        },
+        {
+          "id": "5:7347210135673340645",
+          "name": "createdOn",
+          "type": 9
+        },
+        {
+          "id": "6:8664775725037658997",
+          "name": "dob",
+          "type": 9
+        },
+        {
+          "id": "7:6974264154339196100",
+          "name": "employmentType",
+          "type": 9
+        },
+        {
+          "id": "8:4575126159877187229",
+          "name": "hierarchyId",
+          "type": 9
+        },
+        {
+          "id": "9:2790910235518687694",
+          "name": "mobileNo",
+          "type": 9
+        },
+        {
+          "id": "10:5716250100119281231",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "11:2535568746378465553",
+          "name": "status",
+          "type": 9
+        },
+        {
+          "id": "12:3259929908702361440",
+          "name": "supervisorId",
+          "type": 9
+        },
+        {
+          "id": "13:6436475039788204726",
+          "name": "tradeType",
+          "type": 9
+        },
+        {
+          "id": "14:5398499484375253587",
+          "name": "labourId",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "1:1477850734358336002"
+        },
+        {
+          "id": "15:1004457080500487001",
+          "name": "faceEmbedding",
+          "type": 9
+        },
+        {
+          "id": "16:8550115732522719415",
+          "name": "createdDate",
+          "type": 10
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "1:8563377791112157248",
+  "lastIndexId": "1:1477850734358336002",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}
